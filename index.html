@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles/styles.css">
+  <title>Document</title>
+  <script defer src="./js/app.js"></script>
+</head>
+<body>
+  <div class="container">
+    <div id="overlay">
+      <div class="overlay-prompt">
+        <h2>Ready to obey King Simon</h2>
+        <button id="yes">Yes</button>
+        <button id="no">No</button>
+      </div>
+      <div class="countdown">
+        <h1 class="timer"></h1>
+      </div>
+    </div>
+    <div class="the-game">
+      <h1 class="header-1 copy" id="simon-header">Simon Says...</h1>
+    <h3 class="header-3 copy" id="simon-command">${simonCommand}</h3>
+    <p class="para copy" id="score">${score}</p>
+    </div>
+  </div>
+</body>
+</html>
