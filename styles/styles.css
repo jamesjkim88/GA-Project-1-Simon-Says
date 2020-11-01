@@ -41,7 +41,7 @@ body{
   color: white;
 }
 
-.countdown h1{
+.countdown .timer{
   font-size: 10em;
 }
 
@@ -62,5 +62,6 @@ body{
 }
 
 
-
-"
+.btns{
+  display: none;
+}

@@ -47,19 +47,27 @@ const simonCommands = [
   {
     command: "press the up key",
     type: "key press down",
-    timeDuration: 2
+    timeDuration: 2,
+    score: 1,
+    answer: 38
   },
   {
     command: "click button A",
     type: "click",
-    timeDuration: 2
+    timeDuration: 2,
+    score: 3,
   },
   {
     command: "type 'string' in the input bar",
-    type: "input value",
-    timeDuration: 5
+    type: "input type",
+    timeDuration: 5,
+    score: 5
   }
 ];
+
+
+const randomIndex = Math.floor(Math.random() * simonCommands.length);
+const simon = simonCommands[0]
 
 /****
 STATE
@@ -68,7 +76,9 @@ STATE
 const state = {
   score : null,
   simonSays: null,
-  timer: null
+  timer: null,
+  answer: null,
+  type: null
 }
 
 /**************
@@ -84,35 +94,93 @@ const overlay = document.getElementById('overlay');
 const overlayPrompt = document.querySelector('.overlay-prompt');
 const countdown = document.querySelector('.countdown');
 
-
 init();
-
+/***
+INIT
+***/
 function init(){
+  // adding inital value of our state
   console.log('hello world');
+  state.score = 0;
   state.timer = 5;
+  state.simonSays = simon.command;
+  state.type = simon.type;
+  state.answer = simon.answer;
 }
 
-function render(){
+/*****
+RENDER
+*****/
+function render(evt){
   console.log('rendering');
-};
-
-function gameStart(){
-  console.log('game starting');
-};
-
-overlayPrompt.addEventListener('click', gameStart);
-
-function gameStart(evt){
   if(evt.srcElement === document.querySelector("button#yes")){
     console.log("yes");
     overlayPrompt.style.display = "none";
     countdown.style.display = "flex"
-    document.querySelector(".countdown h1").innerText = state.timer;
+    timer(state.timer);
   }else if(evt.srcElement === document.querySelector("button#no")){
     console.log("no");
   }else{
     return "";
   };
+
+  renderBtns();
+};
+
+function gameStart(evt){
+  // game logic along with render() goes here
+  console.log("game started");
+  render(evt);
+  gameLogic(evt);
+}
+
+function gameLogic(evt){
+  console.log("logic is running");
+  console.log(state.type);
+  console.log(state.answer);
+  if(simon.type === state.type){
+    if(evt.keyCode === state.answer){
+      console.log("good job you get a point");
+      state.score += simon.score;
+      scoreElm.innerText = state.score;
+    }else{
+      console.log("no point");
+    }
+  }
+}
+
+function timer(time){
+  var timer = setInterval(function(){
+    document.querySelector(".countdown h1").innerText = time;
+    time--;
+    if (time < 0) {
+      clearInterval(timer);
+      overlay.style.display = "none";
+    }
+    // rendering first question after countdown
+    if(overlay.style.display === "none"){
+      console.log("it worked!");
+      simonCmdElm.innerText = state.simonSays;
+      scoreElm.innerText = state.score;
+    }
+  }, 1000);
+}
+
+function randomIndexGen(len){
+  return Math.floor(Math.random() * len);
+};
+
+function renderBtns(){
+  const btns = document.querySelector('.btns')
+  const max = 7;
+  for(let i = 0; i<=max; i++){
+    let btnsElm = document.createElement('button');
+    btnsElm.innerText = i;
+    btns.appendChild(btnsElm);
+    btns.style.display = "block";
+  };
 }
 
 
+overlayPrompt.addEventListener('click', gameStart);
+window.addEventListener('keydown', gameStart);
