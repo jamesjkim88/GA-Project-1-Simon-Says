@@ -46,7 +46,7 @@ CONSTANTS
 const simonCommands = [
   {
     command: "press the up key",
-    type: "key press down",
+    type: "keydown",
     timeDuration: 2,
     score: 1,
     answer: 38
@@ -68,7 +68,7 @@ const simonCommands = [
 ];
 
 const randomIndex = randomIndexGen(simonCommands.length);
-const simon = simonCommands[2]
+const simon = simonCommands[randomIndex]
 
 /****
 STATE
@@ -95,10 +95,11 @@ const overlay = document.getElementById('overlay');
 const overlayPrompt = document.querySelector('.overlay-prompt');
 const countdown = document.querySelector('.countdown');
 const btns = document.querySelector('.btns');
+const input = document.querySelector('input');
 
 /**Init Activated**/
 init();
-/******************/
+/**Init Activated**/
 
 /***
 INIT
@@ -130,7 +131,7 @@ function render(evt){
   };
 
  
-
+  input.style.display = "inline-block";
   renderBtns();
 };
 
@@ -139,24 +140,16 @@ function gameStart(evt){
   console.log("game started");
   render(evt);
   gameLogic(evt);
-}
+};
 
 function gameLogic(evt){
   console.log("logic is running");
   console.log(state.type);
   console.log(state.answer);
-  if(simon.type === state.type){
-    if(evt.keyCode === state.answer){
-      console.log("good job you get a point");
-      state.score += simon.score;
-      scoreElm.innerText = state.score;
-    }else{
-      console.log("no point");
-    }
-  }
+  keyEvent(evt)
   clickLogic(evt);
   inputVal(evt);
-}
+};
 
 function timer(time){
   var timer = setInterval(function(){
@@ -173,7 +166,7 @@ function timer(time){
       scoreElm.innerText = state.score;
     }
   }, 1000);
-}
+};
 
 function randomIndexGen(len){
   return Math.floor(Math.random() * len);
@@ -188,7 +181,7 @@ function renderBtns(){
     btns.appendChild(btnsElm);
     btns.style.display = "block";
   };
-}
+};
 
 function clickLogic(evt){
   btns.addEventListener('click', function(evt){
@@ -198,20 +191,33 @@ function clickLogic(evt){
       scoreElm.innerText = state.score;
     }else{
       console.log('incorrect mofo');
-    }
-  })
-}
+    };
+  });
+};
 
 function inputVal(evt){
-  const input = document.querySelector('input');
+  input.addEventListener('input', function(evt){
     if(input.value === simon.answer && input.value === state.answer){
-      console.log("correct");
+      console.log(evt);
+      state.score += simon.score;
+      scoreElm.innerText = state.score;
+      input.value = "";
+    }else{
+      console.log("wrong");
+    };
+  })
+};
+
+function keyEvent(evt){
+  window.addEventListener('keydown', function(evt){
+    if(evt.keyCode === state.answer){
+      console.log("good job you get a point");
       state.score += simon.score;
       scoreElm.innerText = state.score;
     }else{
-      console.log("wrong");
+      console.log("no point");
     }
-}
+  });
+};
 
 overlayPrompt.addEventListener('click', gameStart);
-window.addEventListener('keydown', gameStart);
