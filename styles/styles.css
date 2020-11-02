@@ -45,6 +45,10 @@ body{
   font-size: 10em;
 }
 
+input{
+  display: none;
+}
+
 .copy{
   text-align: center;
 }
