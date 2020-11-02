@@ -52,22 +52,23 @@ const simonCommands = [
     answer: 38
   },
   {
-    command: "click button A",
+    command: "click button #1",
     type: "click",
     timeDuration: 2,
     score: 3,
+    answer: "1"
   },
   {
     command: "type 'string' in the input bar",
     type: "input type",
     timeDuration: 5,
-    score: 5
+    score: 5,
+    answer: "string"
   }
 ];
 
-
-const randomIndex = Math.floor(Math.random() * simonCommands.length);
-const simon = simonCommands[0]
+const randomIndex = randomIndexGen(simonCommands.length);
+const simon = simonCommands[2]
 
 /****
 STATE
@@ -93,8 +94,12 @@ const buttons = document.querySelectorAll('button');
 const overlay = document.getElementById('overlay');
 const overlayPrompt = document.querySelector('.overlay-prompt');
 const countdown = document.querySelector('.countdown');
+const btns = document.querySelector('.btns');
 
+/**Init Activated**/
 init();
+/******************/
+
 /***
 INIT
 ***/
@@ -124,6 +129,8 @@ function render(evt){
     return "";
   };
 
+ 
+
   renderBtns();
 };
 
@@ -147,6 +154,8 @@ function gameLogic(evt){
       console.log("no point");
     }
   }
+  clickLogic(evt);
+  inputVal(evt);
 }
 
 function timer(time){
@@ -181,6 +190,28 @@ function renderBtns(){
   };
 }
 
+function clickLogic(evt){
+  btns.addEventListener('click', function(evt){
+    console.log("click logic working");
+    if(evt.target.innerText === state.answer){
+      state.score += simon.score;
+      scoreElm.innerText = state.score;
+    }else{
+      console.log('incorrect mofo');
+    }
+  })
+}
+
+function inputVal(evt){
+  const input = document.querySelector('input');
+    if(input.value === simon.answer && input.value === state.answer){
+      console.log("correct");
+      state.score += simon.score;
+      scoreElm.innerText = state.score;
+    }else{
+      console.log("wrong");
+    }
+}
 
 overlayPrompt.addEventListener('click', gameStart);
 window.addEventListener('keydown', gameStart);
