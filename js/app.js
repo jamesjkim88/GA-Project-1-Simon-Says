@@ -107,7 +107,7 @@ INIT
 function init(){
   // adding inital value of our state
   console.log('hello world');
-  state.score = 0;
+  state.score = "score";
   state.timer = 5;
   state.simonSays = simon.command;
   state.type = simon.type;
@@ -168,10 +168,6 @@ function timer(time){
   }, 1000);
 };
 
-function randomIndexGen(len){
-  return Math.floor(Math.random() * len);
-};
-
 function renderBtns(){
   const btns = document.querySelector('.btns')
   const max = 7;
@@ -187,8 +183,9 @@ function clickLogic(evt){
   btns.addEventListener('click', function(evt){
     console.log("click logic working");
     if(evt.target.innerText === state.answer){
-      state.score += simon.score;
+      state.score = simon.score;
       scoreElm.innerText = state.score;
+      nextRound()
     }else{
       console.log('incorrect mofo');
     };
@@ -199,9 +196,10 @@ function inputVal(evt){
   input.addEventListener('input', function(evt){
     if(input.value === simon.answer && input.value === state.answer){
       console.log(evt);
-      state.score += simon.score;
+      state.score = simon.score;
       scoreElm.innerText = state.score;
       input.value = "";
+      nextRound()
     }else{
       console.log("wrong");
     };
@@ -212,12 +210,22 @@ function keyEvent(evt){
   window.addEventListener('keydown', function(evt){
     if(evt.keyCode === state.answer){
       console.log("good job you get a point");
-      state.score += simon.score;
+      state.score = simon.score;
       scoreElm.innerText = state.score;
+      nextRound()
     }else{
       console.log("no point");
     }
   });
+};
+
+function nextRound(){
+  simonCmdElm.innerText = "";
+  simonCmdElm.innerText = simonCommands[randomIndexGen(simonCommands.length)].command;
+}
+
+function randomIndexGen(len){
+  return Math.floor(Math.random() * len);
 };
 
 overlayPrompt.addEventListener('click', gameStart);
