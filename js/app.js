@@ -85,6 +85,7 @@ const btns = document.querySelector('.btns');
 const input = document.querySelector('input');
 const startContent = document.querySelector('.start');
 const loseContent = document.querySelector('.lose-round');
+const timerElm = document.querySelector('.timer');
 
 /**Init Activated**/
 init();
@@ -162,21 +163,9 @@ function gameStart(evt){
   // game logic along with render() goes here
   console.log("game started");
   render(evt);
-  //gameLogic(evt);
 };
 
-// function gameLogic(evt){
-//   console.log("logic is running");
-//   console.log(state.type);
-//   console.log(state.answer);
-//   clickLogic(evt);
-// };
-
-// function clickLogic(evt){
-  
-// };
-
-btns.addEventListener('click', function(evt){
+function gamePlay(evt){
   console.log("click logic working");
   console.log(evt.target.innerText, state.answer);
   if(evt.target.innerText === state.answer){
@@ -186,71 +175,81 @@ btns.addEventListener('click', function(evt){
   }else{
     loseRound()
   };
-});
+}
 
-function nextRound(evt){
+function nextRound(){
   // update round 1 state to round 2 stuff.
+
+  // assigning random index into randoNum variable
   let randoNum = randomIndexGen(max);
+  // updating state.answer to randoNum and converting it to a string
   state.answer = randoNum.toString();
+  // updating state.simonSays
   state.simonSays = `Click button #${state.answer}`;
   console.log(state.score);
+  // updating html copy to the update state
   scoreElm.innerHTML = state.score;
   simonCmdElm.innerText = state.simonSays;
   console.log("next round state", state.type);
   console.log("next round state", state.answer);
   console.log("next round state", state.score);
-  randoNum = randomIndexGen(max);
-  //gameLogic(evt);
+  // randoNum = randomIndexGen(max);
 }
 
-function loseRound(evt){
+function loseRound(){
   console.log("you lost the round");
+  // rendering the overlay back
   overlay.style.display = "block";
+  // triggering display block to render overlay prompt
   overlayPrompt.style.display = "block";
+  // hiding the start game content on overlay prompt
   startContent.style.display = "none";
+  // rendering lost game copy
   loseContent.style.display = "block";
+  // hiding the timer
   document.querySelector('.timer').style.display = "none";
-  loseContent.addEventListener('click', evt => {
-    if(evt.srcElement === document.querySelector("button#restart-btn")){
-      init();
-      gameStart(evt)
-      overlayPrompt.style.display = "none";
-      document.querySelector('.timer').style.display = "block";
-    timer(state.timer);
-    }else{
-      gameOver(evt);
-    };
-  });
 }
 
-function gameOver(evt){
+function gameOver(){
   startContent.style.display = "none";
   loseContent.style.display = "none";
   document.querySelector('.game-over').style.display = "block";
-  document.querySelector("div.game-over").addEventListener('click', evt => {
-    console.log(evt.srcElement);
-    if(evt.srcElement === document.querySelector("button#retry-btn")){
-      loseContent.style.display = "none";
-      overlayPrompt.style.display = "none";
-      init();
-      timer(state.timer);
-      document.querySelector('.timer').style.display = "block";
-    }else{
-      console.log("why this no work?");
-    }
-  });
-}
-
-function retry(evt){
-
 }
 
 function randomIndexGen(len){
   return Math.floor(Math.random() * len);
 };
 
+
+
+btns.addEventListener('click', gamePlay);
 overlayPrompt.addEventListener('click', gameStart);
 
+loseContent.addEventListener('click', evt => {
+  if(evt.srcElement === document.querySelector("button#restart-btn")){
+    init();
+    gamePlay(evt)
+    overlayPrompt.style.display = "none";
+    document.querySelector('.timer').style.display = "block";
+  timer(state.timer);
+  }else{
+    gameOver(evt);
+  };
+});
+
+document.querySelector("div.game-over").addEventListener('click', evt => {
+  console.log(evt.srcElement);
+  if(evt.srcElement === document.querySelector("button#retry-btn")){
+    loseContent.style.display = "none";
+    overlayPrompt.style.display = "none";
+    init();
+    timerElm.innerText = "";
+    timer(state.timer);
+    timerElm.style.display = "block";
+  }else{
+    console.log("why this no work?");
+  }
+});
 
 /*
 Old stuff
