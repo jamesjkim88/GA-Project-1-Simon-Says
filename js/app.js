@@ -115,6 +115,7 @@ function render(evt){
     overlayPrompt.style.display = "none";
     countdown.style.display = "flex"
     timer(state.timer);
+    renderBtns();
   }else if(evt.srcElement === document.querySelector("button#no")){
     console.log("no");
   }else{
@@ -128,7 +129,7 @@ function render(evt){
     timer(state.timer);
   }
 
-  renderBtns();
+  
 };
 
 function timer(time){
