@@ -67,8 +67,8 @@ const simonCommands = [
   }
 ];
 
-const randomIndex = randomIndexGen(simonCommands.length);
-const simon = simonCommands[randomIndex]
+//const randomIndex = randomIndexGen;
+const simon = simonCommands[randomIndexGen(simonCommands.length)]
 
 /****
 STATE
@@ -96,6 +96,8 @@ const overlayPrompt = document.querySelector('.overlay-prompt');
 const countdown = document.querySelector('.countdown');
 const btns = document.querySelector('.btns');
 const input = document.querySelector('input');
+const startContent = document.querySelector('.start');
+const loseContent = document.querySelector('.lose-round');
 
 /**Init Activated**/
 init();
@@ -146,9 +148,18 @@ function gameLogic(evt){
   console.log("logic is running");
   console.log(state.type);
   console.log(state.answer);
-  keyEvent(evt)
-  clickLogic(evt);
-  inputVal(evt);
+
+  if(state.type === "input type"){
+    inputVal(evt);
+  }else if(state.type === "keydown"){
+    keyEvent(evt)
+  }else if(state.type === "click"){
+    clickLogic(evt);
+  }else{
+    gameStart(evt);
+  }
+  
+  
 };
 
 function timer(time){
@@ -182,18 +193,20 @@ function renderBtns(){
 function clickLogic(evt){
   btns.addEventListener('click', function(evt){
     console.log("click logic working");
+    console.log(evt.target.innerText, state.answer, state.type);
     if(evt.target.innerText === state.answer){
       state.score = simon.score;
       scoreElm.innerText = state.score;
       nextRound()
     }else{
-      console.log('incorrect mofo');
+      loseRound()
     };
   });
 };
 
 function inputVal(evt){
   input.addEventListener('input', function(evt){
+    console.log(input.value, state.answer, state.type);
     if(input.value === simon.answer && input.value === state.answer){
       console.log(evt);
       state.score = simon.score;
@@ -201,27 +214,105 @@ function inputVal(evt){
       input.value = "";
       nextRound()
     }else{
-      console.log("wrong");
+      loseRound()
     };
   })
 };
 
 function keyEvent(evt){
   window.addEventListener('keydown', function(evt){
+    console.log(evt.keyCode, state.answer, state.type);
     if(evt.keyCode === state.answer){
       console.log("good job you get a point");
       state.score = simon.score;
       scoreElm.innerText = state.score;
       nextRound()
     }else{
-      console.log("no point");
+      loseRound()
     }
   });
 };
 
-function nextRound(){
-  simonCmdElm.innerText = "";
-  simonCmdElm.innerText = simonCommands[randomIndexGen(simonCommands.length)].command;
+function loseRound(){
+  console.log("you lost the round");
+  console.log(loseContent);
+  overlay.style.display = "block";
+  overlayPrompt.style.display = "block";
+  startContent.style.display = "none";
+  loseContent.style.display = "block";
+  document.querySelector('.timer').style.display = "none";
+  loseContent.addEventListener('click', evt => {
+    if(evt.srcElement === document.querySelector("button#restart-btn")){
+      // console.log("yes");
+      // overlayPrompt.style.display = "none";
+      // countdown.style.display = "flex"
+      // timer(state.timer);
+      init();
+      overlayPrompt.style.display = "none";
+      document.querySelector('.timer').style.display = "block";
+    timer(state.timer);
+    }else{
+      gameOver(evt);
+    };
+  });
+}
+
+function nextRound(evt){
+  // state should reset like init??
+  // update round 1 state to round 2 stuff.
+  let newSimonCmd = simonCommands[randomIndexGen(simonCommands.length)];
+  // simonCmdElm.innerText = "";
+  // simon.command = newSimonCmd;
+  // simonCmdElm.innerText = simon.command;
+  // return simon.command;
+  console.log("next round state", state.type);
+  console.log("next round state", state.answer);
+  console.log("next round state", state.score);
+  state.simonSays = newSimonCmd.command;
+  state.type = newSimonCmd.type;
+  state.answer = newSimonCmd.answer;
+  simonCmdElm.innerText = state.simonSays;
+  state.score = simon.score;
+  scoreElm.innerText = state.score;
+  console.log("next round state", state.type);
+  console.log("next round state", state.answer);
+  console.log("next round state", state.score);
+}
+
+function gameOver(evt){
+  startContent.style.display = "none";
+  loseContent.style.display = "none";
+  const gameOver = document.createElement('div');
+  const h2GameOver = document.createElement('h2');
+  const scoreCopy =document.createElement('h1');
+  const retryBtn = document.createElement('button');
+  retryBtn.innerText = "Retry";
+  retryBtn.id = "retry-btn"
+  gameOver.className = "game-over";
+  h2GameOver.innerHTML = `You have failed King Simon.<br/>Here is your total score`;
+  scoreCopy.innerText = state.score;
+  gameOver.appendChild(h2GameOver);
+  gameOver.appendChild(scoreCopy);
+  gameOver.appendChild(retryBtn);
+  overlayPrompt.appendChild(gameOver);
+  retryBtn.addEventListener('click', evt => {
+    if(evt.srcElement === document.querySelector("button#retry-btn")){
+      // console.log("yes");
+      // overlayPrompt.style.display = "none";
+      // countdown.style.display = "flex"
+      // timer(state.timer);
+      init();
+      overlayPrompt.style.display = "none";
+      document.querySelector('.timer').style.display = "block";
+    timer(state.timer);
+    }else{
+      gameOver(evt);
+    };
+  });
+}
+
+function retry(evt){
+
 }
 
 function randomIndexGen(len){

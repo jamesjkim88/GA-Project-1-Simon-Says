@@ -33,6 +33,10 @@ body{
   color:  white;
 }
 
+.lose-round{
+  display: none;
+}
+
 .countdown{
   display: none;
   align-items: center;
