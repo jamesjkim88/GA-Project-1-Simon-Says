@@ -46,7 +46,8 @@ CONSTANTS
 
 
 
-const randomIndex = randomIndexGen(4);
+const max = 4;
+const randomIndex = randomIndexGen(max);
 const simon = {
   command: `Click button #${randomIndex}`,
   score: 1,
@@ -95,7 +96,7 @@ INIT
 function init(){
   // adding inital value of our state
   console.log('hello world');
-  state.score = "score";
+  state.score = 0;
   state.timer = 5;
   state.simonSays = simon.command;
   state.answer = simon.answer;
@@ -130,20 +131,6 @@ function render(evt){
   renderBtns();
 };
 
-function gameStart(evt){
-  // game logic along with render() goes here
-  console.log("game started");
-  render(evt);
-  gameLogic(evt);
-};
-
-function gameLogic(evt){
-  console.log("logic is running");
-  console.log(state.type);
-  console.log(state.answer);
-  clickLogic(evt);
-};
-
 function timer(time){
   var timer = setInterval(function(){
     document.querySelector(".countdown h1").innerText = time;
@@ -163,13 +150,26 @@ function timer(time){
 
 function renderBtns(){
   const btns = document.querySelector('.btns')
-  const max = 4;
   for(let i = 0; i<=max; i++){
     let btnsElm = document.createElement('button');
     btnsElm.innerText = i;
     btns.appendChild(btnsElm);
     btns.style.display = "block";
   };
+};
+
+function gameStart(evt){
+  // game logic along with render() goes here
+  console.log("game started");
+  render(evt);
+  gameLogic(evt);
+};
+
+function gameLogic(evt){
+  console.log("logic is running");
+  console.log(state.type);
+  console.log(state.answer);
+  clickLogic(evt);
 };
 
 function clickLogic(evt){
@@ -186,21 +186,19 @@ function clickLogic(evt){
   });
 };
 
-
-
-
 function nextRound(evt){
   // update round 1 state to round 2 stuff.
-  let randoNum = randomIndexGen(4);
-  state.score += simon.score;
+  let randoNum = randomIndexGen(max);
   state.answer = randoNum.toString();
   state.simonSays = `Click button #${state.answer}`;
+  console.log(state.score);
   scoreElm.innerHTML = state.score;
   simonCmdElm.innerText = state.simonSays;
   console.log("next round state", state.type);
   console.log("next round state", state.answer);
   console.log("next round state", state.score);
-  gameLogic(evt);
+  randoNum = randomIndexGen(max);
+  gameStart(evt);
 }
 
 function loseRound(evt){
