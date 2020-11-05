@@ -37,6 +37,10 @@ body{
   display: none;
 }
 
+.game-over{
+  display : none;
+}
+
 .countdown{
   display: none;
   align-items: center;

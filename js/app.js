@@ -282,32 +282,35 @@ function nextRound(evt){
 function gameOver(evt){
   startContent.style.display = "none";
   loseContent.style.display = "none";
-  const gameOver = document.createElement('div');
-  const h2GameOver = document.createElement('h2');
-  const scoreCopy =document.createElement('h1');
-  const retryBtn = document.createElement('button');
-  retryBtn.innerText = "Retry";
-  retryBtn.id = "retry-btn"
-  gameOver.className = "game-over";
-  h2GameOver.innerHTML = `You have failed King Simon.<br/>Here is your total score`;
-  scoreCopy.innerText = state.score;
-  gameOver.appendChild(h2GameOver);
-  gameOver.appendChild(scoreCopy);
-  gameOver.appendChild(retryBtn);
-  overlayPrompt.appendChild(gameOver);
-  retryBtn.addEventListener('click', evt => {
+  document.querySelector('.game-over').style.display = "block";
+  // const gameOver = document.createElement('div');
+  // const h2GameOver = document.createElement('h2');
+  // const scoreCopy =document.createElement('h1');
+  // const retryBtn = document.createElement('button');
+  // retryBtn.innerText = "Retry";
+  // retryBtn.id = "retry-btn"
+  // gameOver.className = "game-over";
+  // h2GameOver.innerHTML = `You have failed King Simon.<br/>Here is your total score`;
+  // scoreCopy.innerText = state.score;
+  // gameOver.appendChild(h2GameOver);
+  // gameOver.appendChild(scoreCopy);
+  // gameOver.appendChild(retryBtn);
+  // overlayPrompt.appendChild(gameOver);
+  document.querySelector("div.game-over").addEventListener('click', evt => {
+    console.log(evt.srcElement);
     if(evt.srcElement === document.querySelector("button#retry-btn")){
       // console.log("yes");
       // overlayPrompt.style.display = "none";
       // countdown.style.display = "flex"
       // timer(state.timer);
-      init();
+      loseContent.style.display = "none";
       overlayPrompt.style.display = "none";
+      init();
+      timer(state.timer);
       document.querySelector('.timer').style.display = "block";
-    timer(state.timer);
     }else{
-      gameOver(evt);
-    };
+      console.log("why this no work?");
+    }
   });
 }
 
