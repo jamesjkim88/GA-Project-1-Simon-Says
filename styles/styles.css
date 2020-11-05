@@ -37,6 +37,10 @@ body{
   display: none;
 }
 
+.hide{
+  display: none;
+}
+
 .game-over{
   display : none;
 }

@@ -102,8 +102,6 @@ function init(){
   state.simonSays = simon.command;
   state.answer = simon.answer;
   state.randomIndex = randomIndexGen;
-  console.log(state.simonSays);
-  console.log(state.answer);
 }
 
 /*****
@@ -111,16 +109,12 @@ RENDER
 *****/
 function render(evt){
   console.log('rendering');
-  if(evt.srcElement === document.querySelector("button#yes")){
-    console.log("yes");
     overlayPrompt.style.display = "none";
     countdown.style.display = "flex"
     timer(state.timer);
-  }else if(evt.srcElement === document.querySelector("button#no")){
-    console.log("no");
-  }else{
-    return "";
-  };
+    console.log('timer started');
+    console.log('is this working?');
+    document.querySelector('.hide').style.display = "block";
 
   if(evt.srcElement === document.querySelector("button#restart-btn")){
     console.log("restart");
@@ -130,6 +124,7 @@ function render(evt){
   }
 
   renderBtns();
+  
 };
 
 function timer(time){
@@ -140,7 +135,6 @@ function timer(time){
       clearInterval(timer);
       overlay.style.display = "none";
     }
-    // rendering first question after countdown
     if(overlay.style.display === "none"){
       console.log("it worked!");
       simonCmdElm.innerText = state.simonSays;
@@ -160,9 +154,13 @@ function renderBtns(){
 };
 
 function gameStart(evt){
-  // game logic along with render() goes here
-  console.log("game started");
-  render(evt);
+    if(evt.target.innerText.toLowerCase() === "yes"){
+      console.log("game started");
+      render(evt);
+    }else{
+      console.log('just wait');
+      document.querySelector('.hide').style.display = 'block';
+    }
 };
 
 function gamePlay(evt){
@@ -178,36 +176,25 @@ function gamePlay(evt){
 }
 
 function nextRound(){
-  // update round 1 state to round 2 stuff.
-
-  // assigning random index into randoNum variable
   let randoNum = randomIndexGen(max);
-  // updating state.answer to randoNum and converting it to a string
   state.answer = randoNum.toString();
-  // updating state.simonSays
   state.simonSays = `Click button #${state.answer}`;
   console.log(state.score);
-  // updating html copy to the update state
   scoreElm.innerHTML = state.score;
   simonCmdElm.innerText = state.simonSays;
   console.log("next round state", state.type);
   console.log("next round state", state.answer);
   console.log("next round state", state.score);
-  // randoNum = randomIndexGen(max);
 }
 
 function loseRound(){
   console.log("you lost the round");
-  // rendering the overlay back
   overlay.style.display = "block";
-  // triggering display block to render overlay prompt
   overlayPrompt.style.display = "block";
-  // hiding the start game content on overlay prompt
   startContent.style.display = "none";
-  // rendering lost game copy
   loseContent.style.display = "block";
-  // hiding the timer
   document.querySelector('.timer').style.display = "none";
+  document.querySelector('.game-over').style.display = "none";
 }
 
 function gameOver(){
@@ -230,7 +217,8 @@ loseContent.addEventListener('click', evt => {
     init();
     gamePlay(evt)
     overlayPrompt.style.display = "none";
-    document.querySelector('.timer').style.display = "block";
+    timerElm.innerText = "";
+    timerElm.style.display = "block";
   timer(state.timer);
   }else{
     gameOver(evt);
@@ -240,9 +228,10 @@ loseContent.addEventListener('click', evt => {
 document.querySelector("div.game-over").addEventListener('click', evt => {
   console.log(evt.srcElement);
   if(evt.srcElement === document.querySelector("button#retry-btn")){
+    init();
+    gamePlay(evt)
     loseContent.style.display = "none";
     overlayPrompt.style.display = "none";
-    init();
     timerElm.innerText = "";
     timer(state.timer);
     timerElm.style.display = "block";
