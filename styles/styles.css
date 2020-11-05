@@ -55,7 +55,8 @@ body{
     font-size: 24px;
     color: black;
     cursor: pointer;
-    transition: width 0.4s
+    transition: width 0.4s;
+    outline: none;
 }
 
 .btns button:hover{
