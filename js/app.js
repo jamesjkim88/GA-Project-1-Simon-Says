@@ -112,10 +112,20 @@ function render(evt){
     overlayPrompt.style.display = "none";
     countdown.style.display = "flex"
     timer(state.timer);
+<<<<<<< HEAD
     console.log('timer started');
     console.log('is this working?');
     document.querySelector('.hide').style.display = "block";
 
+=======
+    renderBtns();
+  }else if(evt.srcElement === document.querySelector("button#no")){
+    console.log("no");
+  }else{
+    return "";
+  };
+ 
+>>>>>>> gh-pages
   if(evt.srcElement === document.querySelector("button#restart-btn")){
     console.log("restart");
     overlayPrompt.style.display = "none";
@@ -123,7 +133,10 @@ function render(evt){
     timer(state.timer);
   }
 
+<<<<<<< HEAD
   renderBtns();
+=======
+>>>>>>> gh-pages
   
 };
 
