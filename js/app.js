@@ -162,29 +162,31 @@ function gameStart(evt){
   // game logic along with render() goes here
   console.log("game started");
   render(evt);
-  gameLogic(evt);
+  //gameLogic(evt);
 };
 
-function gameLogic(evt){
-  console.log("logic is running");
-  console.log(state.type);
-  console.log(state.answer);
-  clickLogic(evt);
-};
+// function gameLogic(evt){
+//   console.log("logic is running");
+//   console.log(state.type);
+//   console.log(state.answer);
+//   clickLogic(evt);
+// };
 
-function clickLogic(evt){
-  btns.addEventListener('click', function(evt){
-    console.log("click logic working");
-    console.log(evt.target.innerText, state.answer);
-    if(evt.target.innerText === state.answer){
-      state.score += simon.score;
-      scoreElm.innerText = state.score;
-      nextRound()
-    }else{
-      loseRound()
-    };
-  });
-};
+// function clickLogic(evt){
+  
+// };
+
+btns.addEventListener('click', function(evt){
+  console.log("click logic working");
+  console.log(evt.target.innerText, state.answer);
+  if(evt.target.innerText === state.answer){
+    state.score += simon.score;
+    scoreElm.innerText = state.score;
+    nextRound()
+  }else{
+    loseRound()
+  };
+});
 
 function nextRound(evt){
   // update round 1 state to round 2 stuff.
@@ -198,7 +200,7 @@ function nextRound(evt){
   console.log("next round state", state.answer);
   console.log("next round state", state.score);
   randoNum = randomIndexGen(max);
-  gameStart(evt);
+  //gameLogic(evt);
 }
 
 function loseRound(evt){
