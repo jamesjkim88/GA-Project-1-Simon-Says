@@ -120,7 +120,7 @@ function render(evt){
   }else{
     return "";
   };
-
+ 
   if(evt.srcElement === document.querySelector("button#restart-btn")){
     console.log("restart");
     overlayPrompt.style.display = "none";
