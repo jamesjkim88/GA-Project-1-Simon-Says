@@ -100,7 +100,6 @@ INIT
 ***/
 function init(){
   // adding inital value of our state
-  console.log('hello world');
   state.score = 0;
   state.timer = 5;
   state.roundTime = simon.roundTime;
@@ -114,14 +113,12 @@ function init(){
 RENDER
 *****/
 function render(evt){
-  console.log('rendering');
     overlayPrompt.style.display = "none";
     countdown.style.display = "flex"
     timer(state.timer);
     renderBtns();
  
   if(evt.srcElement === document.querySelector("button#restart-btn")){
-    console.log("restart");
     overlayPrompt.style.display = "none";
     countdown.style.display = "flex"
     timer(state.timer);
@@ -141,7 +138,6 @@ function timer(time){
       //roundTimer(state.roundTime);
     }
     if(overlay.style.display === "none"){
-      console.log("it worked!");
       simonCmdElm.innerText = state.simonSays;
       scoreElm.innerText = state.score;
     }
@@ -172,10 +168,8 @@ function renderBtns(){
 function gameStart(evt){
   console.log(evt.target);
     if(evt.srcElement === document.querySelector("button#yes")){
-      console.log("game started");
       render(evt);
     }else{
-      console.log('just wait');
       document.querySelector('.hide').style.display = 'block';
     }
 };
@@ -184,7 +178,6 @@ function gamePlay(evt){
   if(evt.target.innerText === state.answer){
     state.score += simon.score;
     scoreElm.innerText = state.score;
-    console.log(`current score: ${state.score}`);
     if(state.score === state.maxScore){
       console.log("gg its over");
       youWin();
@@ -193,8 +186,6 @@ function gamePlay(evt){
   }else{
     loseRound();
   };
-  console.log(state.score);
-  console.log(state.maxScore);
 }
 
 function nextRound(){
@@ -228,7 +219,6 @@ function gameOver(){
 }
 
 function youWin(){
-  console.log("you win!");
   overlay.style.display = "block";
   overlayPrompt.style.display = "block";
   timerElm.style.display = "none";
@@ -262,7 +252,6 @@ overlayPrompt.addEventListener('click', gameStart);
 loseContent.addEventListener('click', restartGame);
 
 document.querySelector("div.game-over").addEventListener('click', evt => {
-  console.log(evt.srcElement);
   if(evt.srcElement === document.querySelector("button.retry-btn")){
     init();
     gamePlay(evt)
@@ -272,8 +261,6 @@ document.querySelector("div.game-over").addEventListener('click', evt => {
     timer(state.timer);
     timerElm.style.display = "block";
     document.querySelector('.you-win').style.display = "none";
-  }else{
-    console.log("why this no work?");
   }
 });
 
@@ -287,7 +274,5 @@ document.querySelector("div.you-win").addEventListener('click', evt => {
     timerElm.innerText = "";
     timer(state.timer);
     timerElm.style.display = "block";
-  }else{
-    console.log("why this no work?");
   }
 });
