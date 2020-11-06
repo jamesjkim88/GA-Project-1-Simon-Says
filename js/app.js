@@ -166,7 +166,6 @@ function renderBtns(){
 };
 
 function gameStart(evt){
-  console.log(evt.target);
     if(evt.srcElement === document.querySelector("button#yes")){
       render(evt);
     }else{
@@ -179,7 +178,6 @@ function gamePlay(evt){
     state.score += simon.score;
     scoreElm.innerText = state.score;
     if(state.score === state.maxScore){
-      console.log("gg its over");
       youWin();
     }
     nextRound();
@@ -192,7 +190,6 @@ function nextRound(){
   let randoNum = randomIndexGen(max);
   state.answer = randoNum.toString();
   state.simonSays = `Click button #${state.answer}`;
-  console.log(state.score);
   scoreElm.innerHTML = state.score;
   simonCmdElm.innerText = state.simonSays;
   state.roundTime = simon.roundTime;
@@ -201,7 +198,6 @@ function nextRound(){
 }
 
 function loseRound(){
-  console.log("you lost the round");
   overlay.style.display = "block";
   overlayPrompt.style.display = "block";
   startContent.style.display = "none";
@@ -265,7 +261,6 @@ document.querySelector("div.game-over").addEventListener('click', evt => {
 });
 
 document.querySelector("div.you-win").addEventListener('click', evt => {
-  console.log(evt.srcElement);
   if(evt.srcElement === document.querySelector("button#retry-btn1")){
     init();
     gamePlay(evt)
