@@ -4,7 +4,7 @@
 
 <img src="https://i.imgur.com/hdtNyTn.png" alt="screen shot 1" />
 
-<img src="https://i.imgur.com/pBPnjee.png" alt="screen shot 2" />
+<img src="https://i.imgur.com/XtGLM6m.png" alt="screen shot 2" />
 
 <img src="https://i.imgur.com/1bD8geg.png" alt="screen shot 3" />
 
@@ -18,9 +18,9 @@
 ## Start Playing the game!
 1. First click [here](https://jamesjkim88.github.io/GA-Project-1-Simon-Says/) to play the game.
 2. When the page loads up, click 'Yes' to start the game.
-3. After clicking yes, there will be a five second countdown and after the countdown is when the round starts.
+3. After clicking 'Yes', there will be a five second countdown and after the countdown is when the round start and get clicking.
 4. Click as many buttons Simon tells you to as long as you can without mis-clicking a button.
-5. If you have failed, you can retry and try to beat your old score!
+5. If you failed, you can retry and try to beat your old score!
 6. Enjoy the game!
 
 ## Next Steps:
