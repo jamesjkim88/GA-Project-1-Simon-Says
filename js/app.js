@@ -122,10 +122,7 @@ function render(evt){
     overlayPrompt.style.display = "none";
     countdown.style.display = "flex"
     timer(state.timer);
-  }
-
-  //document.querySelector('.round-time').innerText = `You got ${state.roundTime} sec left`;
-  
+  }  
 };
 
 function timer(time){
@@ -135,7 +132,6 @@ function timer(time){
     if (time < 0) {
       clearInterval(timer);
       overlay.style.display = "none";
-      //roundTimer(state.roundTime);
     }
     if(overlay.style.display === "none"){
       simonCmdElm.innerText = state.simonSays;
@@ -193,8 +189,6 @@ function nextRound(){
   scoreElm.innerHTML = state.score;
   simonCmdElm.innerText = state.simonSays;
   state.roundTime = simon.roundTime;
-  // clearInterval(roundTimer(state.roundTime));
-  // roundTimer(state.roundTime);
 }
 
 function loseRound(){
