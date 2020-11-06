@@ -26,4 +26,7 @@
 6. Enjoy the game!
 
 ## Next Steps:
-Try to make an actual Simon Says game like the old 90s hand held ones. Click [here](https://www.amazon.com/Basic-Fun-Electronic-Digital-Diameter/dp/B01MRNSRWK/ref=asc_df_B01MRNSRWK/?tag=hyprod-20&linkCode=df0&hvadid=312166773530&hvpos=&hvnetw=g&hvrand=5475797188246223501&hvpone=&hvptwo=&hvqmt=&hvdev=c&hvdvcmdl=&hvlocint=&hvlocphy=9032191&hvtargid=pla-568512768449&psc=1&tag=&ref=&adgrpid=60661147365&hvpone=&hvptwo=&hvadid=312166773530&hvpos=&hvnetw=g&hvrand=5475797188246223501&hvqmt=&hvdev=c&hvdvcmdl=&hvlocint=&hvlocphy=9032191&hvtargid=pla-568512768449) to see game as reference.
+* Try to make an actual Simon Says game like the old 90s hand held ones. Click [here](https://www.amazon.com/Basic-Fun-Electronic-Digital-Diameter/dp/B01MRNSRWK/ref=asc_df_B01MRNSRWK/?tag=hyprod-20&linkCode=df0&hvadid=312166773530&hvpos=&hvnetw=g&hvrand=5475797188246223501&hvpone=&hvptwo=&hvqmt=&hvdev=c&hvdvcmdl=&hvlocint=&hvlocphy=9032191&hvtargid=pla-568512768449&psc=1&tag=&ref=&adgrpid=60661147365&hvpone=&hvptwo=&hvadid=312166773530&hvpos=&hvnetw=g&hvrand=5475797188246223501&hvqmt=&hvdev=c&hvdvcmdl=&hvlocint=&hvlocphy=9032191&hvtargid=pla-568512768449) to see game as reference.
+* Have less repeating code.
+* Cleaner and more organized data structure model.
+* A much cleaner and better structured MVC design pattern for JavaScript coding.
