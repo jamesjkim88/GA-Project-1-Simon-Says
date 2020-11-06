@@ -65,6 +65,10 @@ body{
   display : none;
 }
 
+#retry-btn, #retry-btn1{
+  margin-top: 25px;
+}
+
 .you-win{
   display: none;
 }

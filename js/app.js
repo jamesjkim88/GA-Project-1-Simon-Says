@@ -107,7 +107,7 @@ function init(){
   state.simonSays = simon.command;
   state.answer = simon.answer;
   state.randomIndex = randomIndexGen;
-  state.maxScore = 5;
+  state.maxScore = 20;
 }
 
 /*****
