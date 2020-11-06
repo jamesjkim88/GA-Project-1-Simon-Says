@@ -18,6 +18,14 @@ body{
   left: 0;
 }
 
+.start button{
+  margin-top: 1.25em;
+}
+
+.lose-round{
+  margin-top: 1.25em;
+}
+
 .overlay-prompt{
   width: 25%;
   background-color: black;
@@ -30,6 +38,8 @@ body{
   text-align: center;
   padding-top: 2em;
   margin-top: 5em;
+  border-radius: 2px;
+  box-shadow: 4px 2px 10px 7px #5d5b5b
 }
 
 .overlay-prompt h2{
@@ -43,6 +53,7 @@ body{
 
 .hide{
   display: none;
+  padding: 20px;
 }
 
 .game-over{
