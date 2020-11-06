@@ -21,10 +21,10 @@ body{
 .start button{
   margin-top: 1.25em;
 }
-
+/* 
 .lose-round{
   margin-top: 1.25em;
-}
+} */
 
 .overlay-prompt{
   width: 25%;
@@ -51,6 +51,11 @@ body{
   display: none;
 }
 
+.round-time{
+  font-size: 3em;
+  text-align: center;
+}
+
 .hide{
   display: none;
   padding: 20px;
@@ -60,9 +65,17 @@ body{
   display : none;
 }
 
+.you-win{
+  display: none;
+}
+
 .overlay-prompt button{
   border: 2px solid white;
   color: white;
+}
+
+.lose-round button{
+  margin-top: 25px;
 }
 
 button{

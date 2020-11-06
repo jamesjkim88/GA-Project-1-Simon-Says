@@ -68,7 +68,8 @@ const state = {
   timer: null,
   answer: null,
   randomIndex: null,
-  roundTime: null
+  roundTime: null,
+  maxScore: null
 }
 
 /**************
@@ -88,6 +89,7 @@ const input = document.querySelector('input');
 const startContent = document.querySelector('.start');
 const loseContent = document.querySelector('.lose-round');
 const timerElm = document.querySelector('.timer');
+const youWinElm = document.querySelector('.you-win');
 
 /**Init Activated**/
 init();
@@ -105,6 +107,7 @@ function init(){
   state.simonSays = simon.command;
   state.answer = simon.answer;
   state.randomIndex = randomIndexGen;
+  state.maxScore = 5;
 }
 
 /*****
@@ -178,15 +181,20 @@ function gameStart(evt){
 };
 
 function gamePlay(evt){
-  console.log("click logic working");
-  console.log(evt.target.innerText, state.answer);
   if(evt.target.innerText === state.answer){
     state.score += simon.score;
     scoreElm.innerText = state.score;
+    console.log(`current score: ${state.score}`);
+    if(state.score === state.maxScore){
+      console.log("gg its over");
+      youWin();
+    }
     nextRound();
   }else{
     loseRound();
   };
+  console.log(state.score);
+  console.log(state.maxScore);
 }
 
 function nextRound(){
@@ -214,8 +222,20 @@ function loseRound(){
 function gameOver(){
   startContent.style.display = "none";
   loseContent.style.display = "none";
+  youWinElm.style.display = "none";
   document.querySelector('.game-over h1').innerText = state.score;
   document.querySelector('.game-over').style.display = "block";
+}
+
+function youWin(){
+  console.log("you win!");
+  overlay.style.display = "block";
+  overlayPrompt.style.display = "block";
+  timerElm.style.display = "none";
+  startContent.style.display = "none";
+  loseContent.style.display = "none";
+  document.querySelector('.game-over').style.display = "none";
+  youWinElm.style.display = "block";
 }
 
 function randomIndexGen(len){
@@ -231,7 +251,7 @@ function restartGame(evt){
     timerElm.style.display = "block";
   timer(state.timer);
   }else{
-    gameOver(evt);
+    gameOver();
   };
 }
 
@@ -243,7 +263,23 @@ loseContent.addEventListener('click', restartGame);
 
 document.querySelector("div.game-over").addEventListener('click', evt => {
   console.log(evt.srcElement);
-  if(evt.srcElement === document.querySelector("button#retry-btn")){
+  if(evt.srcElement === document.querySelector("button.retry-btn")){
+    init();
+    gamePlay(evt)
+    loseContent.style.display = "none";
+    overlayPrompt.style.display = "none";
+    timerElm.innerText = "";
+    timer(state.timer);
+    timerElm.style.display = "block";
+    document.querySelector('.you-win').style.display = "none";
+  }else{
+    console.log("why this no work?");
+  }
+});
+
+document.querySelector("div.you-win").addEventListener('click', evt => {
+  console.log(evt.srcElement);
+  if(evt.srcElement === document.querySelector("button#retry-btn1")){
     init();
     gamePlay(evt)
     loseContent.style.display = "none";
