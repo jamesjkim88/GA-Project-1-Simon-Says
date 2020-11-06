@@ -6,9 +6,11 @@
 
 <img src="https://i.imgur.com/XtGLM6m.png" alt="screen shot 2" />
 
-<img src="https://i.imgur.com/1bD8geg.png" alt="screen shot 3" />
+<img src="https://i.imgur.com/w8u07Ni.png" alt="screen shot 3" />
 
-<img src="https://i.imgur.com/I6ovrv1.png" alt="screen shot 4" />          
+<img src="https://i.imgur.com/1bD8geg.png" alt="screen shot 4" />
+
+<img src="https://i.imgur.com/I6ovrv1.png" alt="screen shot 5" />          
 
 ## Technologies Used:
 * HTML 5
